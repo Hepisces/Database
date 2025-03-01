@@ -12,14 +12,23 @@ This folder contains all works and their categories.
 - **The `reference` folder**, contains all the references, etc., usually in pdf format, usually listed in the solution file.
 - **The `others` folder**, contains other related files.
 
+## Links to Assignments
+
+For ease of reading, here are direct links to the answer files for each assignment.
+
+- [1. challenge](1.%20challenge/challenge_solve.md)
+
+
 ## Directory Structure
+
+This section will show the main directory structure, and considering that there may be too many files in `code` and `reference`, I will not list them all.
 
 ```
 works/
 ├── 1. challenge/
-│   ├── challenge-2025.md
-│   ├── challenge_solve.md
 │   ├── code/
 │   ├── reference/
-│   └── others/
+│   ├── challenge_solve.md
+│   ├── challenge-2025.md
+
 ```
