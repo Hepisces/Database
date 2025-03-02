@@ -2,17 +2,17 @@
 
 ## 问题一
 
-> 思考并解释关系数据库中“关系”一词的含义。（不超过 100 字）
+> 思考并解释关系数据库中"关系"一词的含义。（不超过 100 字）
 
 关系数据库中的"关系"指的是由元组形式的行和作为属性的列组成的二维表格, 用来存储数据,体现数据的表内的逻辑结构. 但也可以通过具有唯一性的一个或多个属性(主键, 用于唯一性确定一个元组)进行表格间的关系运算. _(93 words)_
 
-### 参考文献
+### 问题一参考文献
 
 [1] Oracle. (n.d.). 什么是关系数据库. https://www.oracle.com/cn/database/what-is-a-relational-database/
 
 [2] 知乎. (2025.2.27). 数据库原理与应用第三章关系数据模型. https://zhuanlan.zhihu.com/p/26568591349
 
-### LLMs 使用说明
+### 问题一LLMs使用说明
 
 因为调用了多个 LLM, 如果全部在正文展示篇幅过长, 因此这部分内容将在[reference/llm_respond.md](reference/llm_respond.md)中展示, 并注明模型名称.
 
@@ -20,16 +20,19 @@
 
 > 调研 2023 年之后最先进的 Text2SQL 技术（类似小的文献综述，不超过 500 字），并总结其异同之处。
 
-Text2SQL 任务旨在将自然语言问题转换为可执行的 SQL 查询语句，以实现对关系型数据库的高效查询。传统 Text2SQL 方法主要依赖深度学习模型和预训练语言模型，但这些方法在语义理解, 复杂查询处理和跨域泛化等方面存在难题[5]。23年后, 基于 LLM 的方法逐渐成为研究主流，主要分为提示词、微调和智能体协作三类方法，各具优势与局限性[4,17,22]。
+Text-to-SQL 技术旨在将自然语言查询转化为 SQL 语句，以高效访问关系型数据库。传统方法依赖深度学习和预训练模型，但在语义理解、复杂查询及跨域泛化上存在局限性[5]。2023 年后，大语言模型（LLM）驱动的方法占据主流，分为四类：Prompt、Fine-tuning、Agent 和混合方法[4,17,22]。
 
-1. 提示词: 该方法通过精心设计的提示模板引导 LLMs 生成准确的 SQL 查询，使模型能够以零样本或少样本生成有效查询[1,12,15,23], 几乎无训练成本，但严重依赖高质量提示设计, 跨领域泛化能力有限。
-2. 微调: 通过全参数或参数高效微调技术，使 LLM 更专注于 Text2SQL 任务[14,21], 可显著提高特定领域的查询准确率，但高质量训练数据构建困难且训练成本较高。
-3. 智能体:基于多个大模型智能体协作框架，动态生成和纠正 SQL 查询[18,19,20]。这具有高度灵活性和适应性，适用于复杂查询场景，但系统设计、训练和部署难度较大。
-4. 混合方法: 通过组合上述三类方法在提高准确率和降低训练成本间达到平衡[3]，或引入辅助组件分解复杂任务以降低对 LLM 性能要求[15]。这尽管能综合各种技术优势，但仍面临系统复杂性和综合成本等问题。
+**Prompt**通过设计提示词和辅助组件引导 LLM 生成 SQL，如 DAIL-SQL 在 BIRD[8] 基准上达 55.9%准确率[15]。其优点是支持零/少样本学习，无需大量训练数据，但提示词设计脆弱，跨域泛化能力有限[6,13,23]。
 
-总的来说, 基于 LLM 的 Text2SQL 方法进一步解决了自然语言到 SQL 的翻译问题，但各类方法在泛化性、训练成本和复杂度等方面仍存在不同程度的局限性。有待未来的进一步研究。 *(496 words)*
+**Fine-tuning**通过全参数或参数高效技术优化 LLM，增强特定领域表现。目前，Xi-Yan SQL 的混合框架在 BIRD[8] 基准上以 75.63%准确率保持 SOTA[24]。该方法在特定领域表现优异，但需大量高质量标注数据，尤其在多表查询中挑战较大[8,11]。
 
-### 参考文献
+**Agent**利用多 LLM 协作动态生成和修正 SQL，如 MAC-SQL 在 BIRD[8] 测试上获 59%准确率[19]。其灵活性适于多步推理任务，但系统复杂度和资源需求较高[18,20]。
+
+**混合方法**结合微调与其他技术提升性能。如 CHESS 通过智能体与微调在 BIRD[8] 上达 64.62%准确率[18]，CHASE-SQL 则融合微调与提示词，设计了更精巧的流程在 BIRD[8] 上获得 73%的准确率[14]。然而，组件整合增加了复杂度[3,11]。
+
+综上，2023 年后 Text-to-SQL 技术在 LLM 推动下进步显著。Prompt 方法部署快但泛化不足；Fine-tuning 方法领域强但数据依赖高；Agent 灵活但资源密集；混合方法平衡优势却设计复杂。未来需聚焦降低数据与计算需求，提升跨域能力。
+
+### 问题二参考文献
 
 [1] Caferoğlu, H.A. and Ulusoy, Ö. 2025. E-SQL: Direct Schema Linking via Question Enrichment in Text-to-SQL. arXiv.
 
@@ -49,7 +52,7 @@ Text2SQL 任务旨在将自然语言问题转换为可执行的 SQL 查询语句
 
 [9] Li, Y. et al. 2023. T5-SR: A Unified Seq-to-Seq Decoding Strategy for Semantic Parsing. arXiv.
 
-[10] Liu, A. et al. 2023. A comprehensive evaluation of ChatGPT’s zero-shot Text-to-SQL capability. arXiv.
+[10] Liu, A. et al. 2023. A comprehensive evaluation of ChatGPT's zero-shot Text-to-SQL capability. arXiv.
 
 [11] Liu, X. et al. 2024. A Survey of NL2SQL with Large Language Models: Where are we, and where are we going? arXiv.
 
@@ -77,9 +80,11 @@ Text2SQL 任务旨在将自然语言问题转换为可执行的 SQL 查询语句
 
 [23] Gu, Z. et al. 2023. Few-shot Text-to-SQL Translation using Structure and Content Prompt Learning. Proceedings of the ACM on Management of Data. 1, 2 (Jun. 2023), 1–28. DOI:https://doi.org/10.1145/3589292.
 
-### LLMs 使用说明
+[24] Gao, Y. et al. 2025. A Preview of XiYan-SQL: A Multi-Generator Ensemble Framework for Text-to-SQL. arXiv.
 
-部分的文献阅读使用了LLM进行辅助, 包括文章的翻译, 摘要等任务. 
+### 问题二LLMs使用说明
+
+部分的文献阅读使用了 LLM 进行辅助, 包括文章的翻译, 摘要等任务.
 
 ## 问题三
 
