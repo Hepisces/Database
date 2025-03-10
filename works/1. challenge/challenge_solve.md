@@ -12,7 +12,7 @@
 
 [2] 知乎. (2025.2.27). 数据库原理与应用第三章关系数据模型. https://zhuanlan.zhihu.com/p/26568591349
 
-### 问题一LLMs使用说明
+### 问题一 LLMs 使用说明
 
 因为调用了多个 LLM, 如果全部在正文展示篇幅过长, 因此这部分内容将在[reference/llm_respond.md](reference/llm_respond.md)中展示, 并注明模型名称.
 
@@ -82,7 +82,7 @@ Text-to-SQL 技术旨在将自然语言查询转化为 SQL 语句，以高效访
 
 [24] Gao, Y. et al. 2025. A Preview of XiYan-SQL: A Multi-Generator Ensemble Framework for Text-to-SQL. arXiv.
 
-### 问题二LLMs使用说明
+### 问题二 LLMs 使用说明
 
 部分的文献阅读使用了 LLM 进行辅助, 包括文章的翻译, 摘要等任务.
 
@@ -207,5 +207,31 @@ _也可以额外增加一段如`#输出格式# <<<你的sql代码>>>`来保证�
 
 ## 问题四
 
-> 为什么在Python中 **{[1,2]}** 不合法? 
+> 为什么在 Python 中 **{[1,2]}** 不合法?
 
+首先, 如果在 python 中定义`{[1,2]}`会导致如下错误:
+
+```bash
+>>> a={[1,2]}
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: unhashable type: 'list'
+```
+
+报错提示列表是不可哈希的. 这说明列表不能作为字典的键存在. (一个重点是如果在 python 中使用花括号定义, 那么这个定义的是字典, 而不是集合)
+
+根据 python 的官方文档,(https://docs.python.org/zh-cn/3.13/tutorial/datastructures.html#dictionaries)
+
+> 字典是以 键 来索引的，键可以是任何不可变类型；字符串和数字总是可以作为键。 元组在其仅包含字符串、数字或元组时也可以作为键；如果一个元组直接或间接地包含了任何可变对象，则不可以用作键。 你不能使用列表作为键，因为列表可使用索引赋值、切片赋值或 append() 和 extend() 等方法进行原地修改
+
+因此很明显, 列表是可变对象, 并且是可以原地修改的, 这不符合 python 对列表键的定义, 即不可变, 或者不可哈希.
+
+从定义上来说, 哈希的关键要求时`对象在生命周期内保持不变`, 列表显然不符合定义
+
+从一个字典的定义和检索过程来看,
+
+当字典的键值对`{key: value}`被定义后, 字典会通过内置的`hash()`函数对 key 进行一次计算, 根据返回值(记为`A`)决定`value`的存储位置并不再更新;
+
+当`key`为列表时, 由于是可变对象, 当列表被修改后, `hash()`函数的返回值会发生变化,记为`B` 当字典检索时, 就会去找到`B`位置的`value`值. 但实际上我们需要的`value`值是`A`位置的, 因此就会导致检索错误.
+
+为了避免这个错误, 字典就禁止了列表作为键.
