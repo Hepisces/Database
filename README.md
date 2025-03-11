@@ -7,7 +7,7 @@
 All jobs are stored in the `works` folder: [view folder](works)
 
 My notes can be seen in [Database 2024-2025-2.pdf](SWUFE%20Database%202024-2025-2.pdf)
-(As it is written by Obsidian, so in order to keep the format, I have to use the pdf file to show it.)
+(Because the notes are written on Obsidian, there may be a small number of formatting issues due to compilation, which will be slowly modified later on)
 
 ## Repository Information
 
