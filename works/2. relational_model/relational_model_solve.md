@@ -44,7 +44,11 @@ $$
 $$
 
 因此验证失败的情况应该是:(1) 用户名不存在, (2) 用户名存在, 但是密码错误. 当然还有都错误的情况, 不过如果用户名已经判定为不存在, 不应当继续判定密码增加开销, 当然数据库系统可能已经有对应优化措施, 所以像
-$$\sigma_{\text{pswd = input\_pswd} \land \text{name = \text{input\_name}}}(\text{users})$$
+
+$$
+\sigma_{\text{pswd = input\_pswd} \land \text{name = \text{input\_name}}}(\text{users})
+$$
+
 这样同时判断用户名和密码是否匹配的判断方法与前面的计算方法可能几乎无性能差异.
 
 进一步地, 可以判断用户的性别, 优化登录界面, 在验证成功后, 根据
