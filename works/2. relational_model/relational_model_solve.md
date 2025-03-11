@@ -17,7 +17,7 @@
 > 2. 找到在`杨柳`支行有贷款（`loan`）的借款人（`borrower`）的 ID。
 
 1. $$
-   \Pi_{{\text{branch\_name}}}(\sigma_{branch\_city = '成都'}(\text{branch}))
+   \Pi_{{\text{branch\_name}}}(\sigma_{\text{branch\_city = '成都'}}(\text{branch}))
    $$
 
 2. $$
@@ -40,13 +40,13 @@
 因此, 假设用户在客户端输入的用户名和密码分别为`input_name`和`input_pswd`, 则第二步查找的过程可能是先查找用户名, 再查找密码, 用关系代数表示为:
 
 $$
-\sigma_{pswd = \text{input\_pswd}}(\sigma_{name = \text{input\_name}}(\text{users}))
+\sigma_{\text{pswd = input\_pswd}}(\sigma_{\text{name = input\_name}}(\text{users}))
 $$
 
 因此验证失败的情况应该是:(1) 用户名不存在, (2) 用户名存在, 但是密码错误. 当然还有都错误的情况, 不过如果用户名已经判定为不存在, 不应当继续判定密码增加开销, 当然数据库系统可能已经有对应优化措施, 所以像
 
 $$
-\sigma_{\text{pswd = input\_pswd} \land \text{name = \text{input\_name}}}(\text{users})
+\sigma_{\text{pswd = input\_pswd} \land \text{name = input\_name}}(\text{users})
 $$
 
 这样同时判断用户名和密码是否匹配的判断方法与前面的计算方法可能几乎无性能差异.
@@ -54,7 +54,7 @@ $$
 进一步地, 可以判断用户的性别, 优化登录界面, 在验证成功后, 根据
 
 $$
-\Pi_{\text{gender,name}}(\sigma_{\text{pswd = input\_pswd} \land \text{name = \text{input\_name}}}(\text{users}))
+\Pi_{\text{gender,name}}(\sigma_{\text{pswd = input\_pswd} \land \text{name = input\_name}}(\text{users}))
 $$
 
 的返回结果来判定用户的性别, 显示`{name}{gender},欢迎您`的登录界面.
