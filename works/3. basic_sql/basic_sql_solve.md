@@ -11,7 +11,7 @@ CREATE TABLE users(
     pswd VARCHAR(20),
     gender BOOLEAN -- 0 表示女, 1 表示男
 );
-``` 
+```
 
 ## 问题二
 
@@ -29,22 +29,25 @@ CREATE TABLE users(
 > 2. 找到所有被名叫`图灵`的老师教过的学生的学号（`ID`），并确保结果没有重复。
 
 - 1
+
 ```sql
 SELECT course_id
-FROM course 
+FROM course
 WHERE
     credits>=3
     AND
-    dept_name="计算机";
+    dept_name='计算机'
+ORDER BY credits ASC;
 ```
 
 - 2
+
 ```sql
 SELECT DISTINCT tk.ID AS ID
 FROM takes tk
-LEFT JOIN teaches te ON tk.course_id = te.course_id
-LEFT JOIN instructor ins ON te.ID = ins.ID
-WHERE ins.name="图灵";
+JOIN teaches te ON tk.course_id = te.course_id
+JOIN instructor ins ON te.ID = ins.ID
+WHERE ins.name='图灵';
 ```
 
 ## 问题三
@@ -57,4 +60,4 @@ WHERE ins.name="图灵";
 > WHERE T.salary > S.salary AND S.dept_name = '会计';
 > ```
 
-所有至少比一个会计学院老师薪水高的老师的名字. 
+所有至少比一个会计学院老师薪水高的老师的名字.
