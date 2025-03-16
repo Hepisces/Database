@@ -1,4 +1,4 @@
-# 作业解答
+# Basic SQL 作业解答
 
 ## 问题一
 
@@ -43,11 +43,17 @@ ORDER BY credits ASC;
 - 2
 
 ```sql
-SELECT DISTINCT tk.ID AS ID
-FROM takes tk
-JOIN teaches te ON tk.course_id = te.course_id
-JOIN instructor ins ON te.ID = ins.ID
-WHERE ins.name='图灵';
+SELECT
+    DISTINCT tk.ID AS ID
+FROM
+    takes tk
+    JOIN teaches te ON tk.course_id = te.course_id
+    AND tk.sec_id = te.sec_id
+    AND tk.semester = te.semester
+    AND tk.year = te.year
+    JOIN instructor ins ON te.ID = ins.ID
+WHERE
+    ins.name = '图灵';
 ```
 
 ## 问题三
@@ -60,4 +66,4 @@ WHERE ins.name='图灵';
 > WHERE T.salary > S.salary AND S.dept_name = '会计';
 > ```
 
-所有至少比一个会计学院老师薪水高的老师的名字.
+所有至少比一个会计学院老师薪水高的老师的名字, 确保结果没有重复.

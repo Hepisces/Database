@@ -8,7 +8,7 @@ For ease of reading, here are direct links to the answer files for each assignme
 
 - [1. challenge](1.%20challenge/challenge_solve.md)
 - [2. relational_model](2.%20relational_model/relational_model_solve.md)
-
+- [3. basic_sql](3.%20basic_sql/basic_sql_solve.md)
 ## Description
 
 **Each folder will typically contain the following contents:**
