@@ -17,9 +17,12 @@
 
 共在 university 的 public schema 下导入 11 张表
 
-- 如图所示
+- 如图所示, 没有任何结果
 
 ![q1_rerun](others/q1_rerun.png)
+
+*但是如果在数据库中进一步执行 smallRelationsInsertFile.sql 导入, 则可以查询到结果*
+
 
 ## 问题二
 
