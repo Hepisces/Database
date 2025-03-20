@@ -1,5 +1,8 @@
 # lab_sql 作业解答
 
+所有代码可见根目录 code 文件夹`lab_sql_solve.sql`
+[查看源码](/code/lab_sql_solve.sql)
+
 ## 问题一
 
 > 需要使用 PostgreSQL 及 DataGrip 软件操作，并对操作页面及结果进行截图。
