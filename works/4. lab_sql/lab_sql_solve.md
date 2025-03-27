@@ -108,6 +108,8 @@ university=# \d instructor
 
 ```bash
 university=# SELECT * FROM instructor WHERE name ~ '^S';
+university=# SELECT * FROM instructor WHERE name LIKE 'S%';
+university=# SELECT * FROM instructor WHERE name SIMILAR TO 'S%';
 ```
 
 ![q3_rerunq2](others/q3_rerunq2.png)
