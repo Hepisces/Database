@@ -11,7 +11,7 @@
 > 1. 在 DataGrip 中可视化操作。
 > 2. 使用`COPY`命令。
 
-数据准备:本次数据来源于[CSDN](https://blog.csdn.net/qq_52213943/article/details/124496420), 通过事前删除无关列后经由[duplicate.py](./others/duplicate.py)脚本去重, 删去空值后生成数据文件为[data.txt](./others/data.txt)
+数据准备:本次数据来源于[CSDN](https://blog.csdn.net/qq_52213943/article/details/124496420), 通过事前删除无关列后经由[duplicate.py](./code/duplicate.py)脚本去重, 删去空值后生成数据文件为[data.txt](./others/data.txt)
 
 ### 关系创建
 
