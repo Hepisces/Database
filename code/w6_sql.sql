@@ -1,11 +1,11 @@
-CREATE TABLE product.product_copy
+CREATE TABLE product.product
 (
     product_no CHAR(6) PRIMARY KEY,
     name       VARCHAR(15),
     price      NUMERIC(6, 2)
 );
 
-COPY product.product_copy (product_no, name, price)
+COPY product.product (product_no, name, price)
     FROM 'F:\GITHUB\Database\works\6. sql\others\data.txt'
     WITH (FORMAT TEXT, DELIMITER ',', NULL '');
 
@@ -42,3 +42,24 @@ FROM product.product;
 DELETE
 FROM product.product
 WHERE price > (SELECT AVG(price) FROM product.product);
+
+-- 3-1
+COPY product.product (product_no, name, price)
+    FROM 'F:\GITHUB\Database\works\6. sql\others\data.txt'
+    WITH (FORMAT TEXT, DELIMITER ',', NULL '');
+
+INSERT INTO product.product (product_no, name, price)
+SELECT 't' || generate_series,
+       'Product' || generate_series,        -- 生成名称 Product1, Product2, ...
+       ROUND((RANDOM() * 1000)::numeric, 2) -- 生成0到1000之间的随机价格，保留2位小数
+FROM GENERATE_SERIES(0, 99999);
+
+-- 3-2
+\timing on
+DELETE
+FROM product.product;
+\time off
+
+\timing on
+TRUNCATE TABLE product.product;
+\time off

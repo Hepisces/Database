@@ -6,14 +6,14 @@
 
 ## 题目一
 
-> 在数据库中创建该关系，并自建上面关系的 txt 数据文件，分别采用两种方式导入数据（要求截图重要步骤）：
+>在数据库中创建该关系，并自建上面关系的txt数据文件：
 >
-> 1. 在 DataGrip 中可视化操作。
-> 2. 使用`COPY`命令。
+>1. 使用`COPY`命令导入数据库（PostgreSQL）；或使用`LOAD DATA`命令导入数据库（MySQL）。
+>2. 将该关系导出为任意文件（如SQL、Txt、CSV、JSON等）。
 
 数据准备:本次数据来源于[CSDN](https://blog.csdn.net/qq_52213943/article/details/124496420), 通过事前删除无关列后经由[duplicate.py](./code/duplicate.py)脚本去重, 删去空值后生成数据文件为[data.txt](./others/data.txt)
 
-### 关系创建
+<!-- ### 关系创建
 
 1. 首先选择 university 数据库,右键菜单中选择`New`->`Schema`
    ![schema1](others/schema1.png)
@@ -33,14 +33,14 @@
    ![import_1_3](others/import_1_3.png)
 
 4. 如图, 导入成功, 共 771 行, 与 txt 中相符
-   ![import_1_4](others/import_1_4.png)
+   ![import_1_4](others/import_1_4.png) -->
 
-### 方法 2
+### COPY命令
 
-1. 通过代码先创建表, 命名为`product_copy`
+1. 通过代码先创建表, 命名为`product`
 
 ```sql
-CREATE TABLE product.product_copy
+CREATE TABLE product.product
 (
     product_no CHAR(6) PRIMARY KEY,
     name       VARCHAR(15),
@@ -54,7 +54,7 @@ CREATE TABLE product.product_copy
 2. 使用`COPY`命令导入数据,设定分隔符为`,`, 绝对路径导入
 
 ```sql
-COPY product.product_copy (product_no, name, price)
+COPY product.product (product_no, name, price)
     FROM 'F:\GITHUB\Database\works\6. sql\others\data.txt'
     WITH (FORMAT TEXT, DELIMITER ',', NULL '');
 ```
@@ -62,8 +62,8 @@ COPY product.product_copy (product_no, name, price)
 执行后如图, 成功导入数据
 ![import_2_2](others/import_2_2.png)
 
-3.  查看表, 共 771 行, 与方法一和原始文件相符
-    ![import_2_3](others/import_2_3.png)
+3.  查看表,共 771 行, 与 txt 中相符
+   ![import_1_4](others/import_1_4.png)
 
 ## 题目二
 
@@ -74,17 +74,17 @@ COPY product.product_copy (product_no, name, price)
 > 5. 将名字包含`cake`的商品删除。
 > 6. 将价格高于平均价格的商品删除。
 
-### 通过`INSERT`语句添加(这里由于定义原因, 补全编号为 6 位)
+### 1. 通过`INSERT`语句添加
 
 ```sql
 INSERT INTO product.product(product_no, name, price)
-VALUES (000666, 'cake', NULL);
+VALUES (666, 'cake', NULL);
 ```
 
 执行后如图, 成功添加
 ![insert](others/insert.png)
 
-### 仍然使用`INSERT`语句添加
+### 2. 仍然使用`INSERT`语句添加
 
 ```sql
 INSERT INTO product.product (product_no, name, price)
@@ -96,7 +96,7 @@ VALUES ('999991', 'iPhone', 999.99),
 执行后如图, 成功添加
 ![insert2](others/insert2.png)
 
-### 通过`UPDATE`语句更新
+### 3. 通过`UPDATE`语句更新
 
 ```sql
 UPDATE product.product
@@ -106,7 +106,7 @@ SET price=price * 0.8;
 执行后如图, 成功打折
 ![update1](others/update1.png)
 
-### 通过`UPDATE`语句更新
+### 4. 通过`UPDATE`语句更新
 
 ```sql
 UPDATE product.product
@@ -119,7 +119,7 @@ SET price = CASE
 执行后如图, 成功更新
 ![update2](others/update2.png)
 
-### 通过`DELETE`语句删除
+### 5. 通过`DELETE`语句删除
 
 ```sql
 DELETE
@@ -130,7 +130,7 @@ WHERE name LIKE '%cake%';
 执行后如图, 成功删除
 ![delete](others/delete.png)
 
-### 通过`DELETE`语句删除
+### 6. 通过`DELETE`语句删除
 
 首先查看平均价格
 
@@ -152,3 +152,60 @@ WHERE price > (SELECT AVG(price) FROM product.product);
 
 如图, 成功删除, 大于 19.21 的商品已经不在表格中, 包括第二小问添加的三个商品
 ![delete2](others/delete2.png)
+
+## 题目三
+
+> 使用参考下面的语句添加10万条商品，
+> 
+> ```sql
+> -- PostgreSQL Only
+> INSERT INTO product (name, price)
+> SELECT
+>     'Product' || generate_series, -- 生成名称 Product1, Product2, ...
+>    ROUND((random() * 1000)::numeric, 2) -- 生成0到1000之间的随机价格，保留2位小数
+> FROM generate_series(1, 100000);
+> ```
+> 
+> 比较`DELETE`和`TRUNCATE`的性能差异。
+
+首先在每次执行删除前都运行如下命令保证数据表相同:
+```sql
+COPY product.product (product_no, name, price)
+    FROM 'F:\GITHUB\Database\works\6. sql\others\data.txt'
+    WITH (FORMAT TEXT, DELIMITER ',', NULL '');
+
+INSERT INTO product.product (product_no, name, price)
+SELECT 't' || generate_series,
+       'Product' || generate_series,        -- 生成名称 Product1, Product2, ...
+       ROUND((RANDOM() * 1000)::numeric, 2) -- 生成0到1000之间的随机价格，保留2位小数
+FROM GENERATE_SERIES(0, 99999);
+```
+
+然后分别对`delete`和`truncate`计时:
+
+- `delete`
+
+执行
+```sql
+\timing on
+DELETE
+FROM product.product;
+\time off
+```
+如图:
+![timing_delete](others/timing_delete.png)
+运行时间为 **47ms**
+
+- `truncate`
+
+执行
+```sql
+\timing on
+TRUNCATE TABLE product.product;
+\time off
+```
+如图:
+![timing_truncate](others/timing_truncate.png)
+运行时间为**7ms**
+
+结论:在删除表内容上, `truncate`比`delete`性能显著优异
