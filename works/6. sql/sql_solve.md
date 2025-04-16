@@ -13,28 +13,6 @@
 
 数据准备:本次数据来源于[CSDN](https://blog.csdn.net/qq_52213943/article/details/124496420), 通过事前删除无关列后经由[duplicate.py](./code/duplicate.py)脚本去重, 删去空值后生成数据文件为[data.txt](./others/data.txt)
 
-<!-- ### 关系创建
-
-1. 首先选择 university 数据库,右键菜单中选择`New`->`Schema`
-   ![schema1](others/schema1.png)
-
-2. 在弹出的对话框中`Name`处输入`product`，然后点击`OK`即创建成功
-   ![schema2](others/schema2.png)
-
-### 方法 1
-
-1. 在之前创建好的`product`关系上右键菜单中选择`Import/Export`->`Import Data from File(s)`
-   ![import_1_1](others/import_1_1.png)
-
-2. 在弹出的对话框找到之前创建好的`data.txt`文件, 点击`OK`
-   ![import_1_2](others/import_1_2.png)
-
-3. 根据题目要求命名 Table 为`product`, 然后更改对应列名以及数据类型, 然后`OK`
-   ![import_1_3](others/import_1_3.png)
-
-4. 如图, 导入成功, 共 771 行, 与 txt 中相符
-   ![import_1_4](others/import_1_4.png) -->
-
 ### COPY命令
 
 1. 通过代码先创建表, 命名为`product`
@@ -62,8 +40,20 @@ COPY product.product (product_no, name, price)
 执行后如图, 成功导入数据
 ![import_2_2](others/import_2_2.png)
 
-3.  查看表,共 771 行, 与 txt 中相符
+3. 查看表,共 771 行, 与 txt 中相符
    ![import_1_4](others/import_1_4.png)
+
+### 数据导出
+
+1. 在左侧的关系中找到`product`表, 右键选择`import/export`->`export data to file`
+![export_1](others/export_1.png)
+
+2. 选择导出格式为`SQL Inserts`,修改保存路径后, 点击`export to file`
+![export_2](others/export_2.png)
+
+3. 右下角及终端提示成功, 导出文件为`product.sql`, 可以查看数据:[product.sql](others/product.sql)
+![export_3](others/export_3.png)
+
 
 ## 题目二
 
