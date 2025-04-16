@@ -6,14 +6,14 @@
 
 ## 题目一
 
->在数据库中创建该关系，并自建上面关系的txt数据文件：
+> 在数据库中创建该关系，并自建上面关系的 txt 数据文件：
 >
->1. 使用`COPY`命令导入数据库（PostgreSQL）；或使用`LOAD DATA`命令导入数据库（MySQL）。
->2. 将该关系导出为任意文件（如SQL、Txt、CSV、JSON等）。
+> 1.  使用`COPY`命令导入数据库（PostgreSQL）；或使用`LOAD DATA`命令导入数据库（MySQL）。
+> 2.  将该关系导出为任意文件（如 SQL、Txt、CSV、JSON 等）。
 
 数据准备:本次数据来源于[CSDN](https://blog.csdn.net/qq_52213943/article/details/124496420), 通过事前删除无关列后经由[duplicate.py](./code/duplicate.py)脚本去重, 删去空值后生成数据文件为[data.txt](./others/data.txt)
 
-### COPY命令
+### COPY 命令
 
 1. 通过代码先创建表, 命名为`product`
 
@@ -46,14 +46,13 @@ COPY product.product (product_no, name, price)
 ### 数据导出
 
 1. 在左侧的关系中找到`product`表, 右键选择`import/export`->`export data to file`
-![export_1](others/export_1.png)
+   ![export_1](others/export_1.png)
 
 2. 选择导出格式为`SQL Inserts`,修改保存路径后, 点击`export to file`
-![export_2](others/export_2.png)
+   ![export_2](others/export_2.png)
 
 3. 右下角及终端提示成功, 导出文件为`product.sql`, 可以查看数据:[product.sql](others/product.sql)
-![export_3](others/export_3.png)
-
+   ![export_3](others/export_3.png)
 
 ## 题目二
 
@@ -145,8 +144,8 @@ WHERE price > (SELECT AVG(price) FROM product.product);
 
 ## 题目三
 
-> 使用参考下面的语句添加10万条商品，
-> 
+> 使用参考下面的语句添加 10 万条商品，
+>
 > ```sql
 > -- PostgreSQL Only
 > INSERT INTO product (name, price)
@@ -155,10 +154,11 @@ WHERE price > (SELECT AVG(price) FROM product.product);
 >    ROUND((random() * 1000)::numeric, 2) -- 生成0到1000之间的随机价格，保留2位小数
 > FROM generate_series(1, 100000);
 > ```
-> 
+>
 > 比较`DELETE`和`TRUNCATE`的性能差异。
 
 首先在每次执行删除前都运行如下命令保证数据表相同:
+
 ```sql
 COPY product.product (product_no, name, price)
     FROM 'F:\GITHUB\Database\works\6. sql\others\data.txt'
@@ -176,12 +176,14 @@ FROM GENERATE_SERIES(0, 99999);
 - `delete`
 
 执行
+
 ```sql
 \timing on
 DELETE
 FROM product.product;
 \time off
 ```
+
 如图:
 ![timing_delete](others/timing_delete.png)
 运行时间为 **47ms**
@@ -189,11 +191,13 @@ FROM product.product;
 - `truncate`
 
 执行
+
 ```sql
 \timing on
 TRUNCATE TABLE product.product;
 \time off
 ```
+
 如图:
 ![timing_truncate](others/timing_truncate.png)
 运行时间为**7ms**
