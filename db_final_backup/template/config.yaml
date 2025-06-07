@@ -1,0 +1,51 @@
+# 数据库设置
+database:
+  type: postgresql  # 默认使用PostgreSQL
+  host: localhost
+  port: 5432
+  user: postgres
+  password: postgres
+  dbname: project2025
+  # 保留SQLite作为备选
+  # sqlite_path: project2025.db
+
+# SQL解析器设置
+parser:
+  error_format: friendly  # friendly, technical, detailed
+  suggest_fixes: true
+  dialect: postgresql  # 默认使用PostgreSQL方言
+
+# 可视化设置
+visualization:
+  engine: matplotlib  # matplotlib, plotly
+  theme: default
+  query_plan: true  # 是否显示查询执行计划
+  max_results: 1000  # 可视化的最大结果数
+
+# 自然语言处理
+nlp:
+  model_type: local  # local, online
+  
+  # 本地模型配置 (Hugging Face)
+  local:
+    provider: huggingface  # 只使用huggingface
+    model_path: models/mistral-7b-sql-finetuned  # 本地模型路径
+    max_tokens: 1024
+    temperature: 0.3
+  
+  # 在线模型配置
+  online:
+    provider: qwen  # qwen, deepseek
+    api_key: ${QWEN_API_KEY}  # 从环境变量读取
+    model: qwen-max  # 默认使用qwen-max
+    max_tokens: 1024
+    temperature: 0.3
+    # deepseek配置
+    # provider: deepseek
+    # api_key: ${DEEPSEEK_API_KEY}
+    # model: deepseek-chat
+
+# 日志设置
+logging:
+  level: info  # debug, info, warning, error
+  file: logs/sqlassistant.log 
