@@ -6,7 +6,7 @@
 
 All jobs are stored in the `works` folder: [view folder](works)
 
-My notes can be seen in folder [notes](notes)
+My notes can be seen in folder [Notes](Notes)
 
 All `sql` file(In-class or after-class exercises) are stored in the `code` folder: [view folder](code)
 
