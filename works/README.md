@@ -15,6 +15,8 @@ For ease of reading, here are direct links to the answer files for each assignme
 - [7.1. test1](7.1.%20test1/test1_solve.md)
 - [7.2. Nosql](7.2.%20Nosql/Nosql_solve.md)
 - [8. er](8.%20er/er_solve.md)
+- [9. self](9.%20self/README.md)
+
 ## Description
 
 **Each folder will typically contain the following contents:**
@@ -66,4 +68,7 @@ works/
 |   ├── others/
 |   ├── er_solve.md
 |   ├── er(README).md
+├── 9. self/
+|   ├── others/
+|   ├── README.md
 ```
