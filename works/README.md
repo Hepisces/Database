@@ -12,8 +12,8 @@ For ease of reading, here are direct links to the answer files for each assignme
 - [4. lab_sql](4.%20lab_sql/lab_sql_solve.md)
 - [5. sql](5.%20sql/sql_solve.md)
 - [6. sql](6.%20sql/sql_solve.md)
-- [7.1 test1](7.1%20test1/test1_solve.md)
-- [7.2 Nosql](7.2%20Nosql/Nosql_solve.md)
+- [7.1. test1](7.1.%20test1/test1_solve.md)
+- [7.2. Nosql](7.2.%20Nosql/Nosql_solve.md)
 - [8. er](8.%20er/er_solve.md)
 ## Description
 
