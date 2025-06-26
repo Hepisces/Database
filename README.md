@@ -13,3 +13,5 @@ All `sql` file(In-class or after-class exercises) are stored in the `code` folde
 ## Course Information
 
 This repository contains materials for the Database Principles and Applications course at Southwestern University of Finance and Economics (SWUFE). The original repository can be found at [there](https://github.com/ChenZhongPu/db-swufe.git)
+
+## Final project
