@@ -16,7 +16,8 @@ This repository contains materials for the Database Principles and Applications 
 
 ## Final project
 
-You can see the final project in the [DB_Final](DB_Final) folder. It is stored in a subrepository.
+You can see the final project in the [DB_Final](https://github.com/Hepisces/db_final/tree/main). It is stored in a subrepository.
+
 Collaborators:
 
 - [@hlfhlfhlf12344444444](https://github.com/hlfhlfhlf12344444444)
